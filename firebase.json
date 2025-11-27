@@ -1,0 +1,31 @@
+{
+    "_comment": "Firebase configuration for Taskflow - Update these values once Firebase project is created",
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "taskflow-app-XXXXX",
+                    "appId": "1:XXXXXXXXXXXX:android:XXXXXXXXXXXXXXXX",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "taskflow-app-XXXXX",
+                    "appId": "1:XXXXXXXXXXXX:ios:XXXXXXXXXXXXXXXX",
+                    "uploadDebugSymbols": true,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "taskflow-app-XXXXX",
+                    "configurations": {
+                        "android": "1:XXXXXXXXXXXX:android:XXXXXXXXXXXXXXXX",
+                        "ios": "1:XXXXXXXXXXXX:ios:XXXXXXXXXXXXXXXX"
+                    }
+                }
+            }
+        }
+    }
+}

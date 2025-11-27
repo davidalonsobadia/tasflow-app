@@ -1,0 +1,21 @@
+{
+  "dev": {
+    "apiBaseUrl": "https://your-dev-api-base-url.com",
+    "clientId": "YOUR_DEV_CLIENT_ID",
+    "clientSecret": "YOUR_DEV_CLIENT_SECRET",
+    "tokenEndpoint": "/YOUR-DEV-ID/oauth2/v2.0/token",
+    "scope": "SCOPE_FOR_DEV",
+    "companyIdEndpoint": "/companies(YOUR_DEV_COMPANY_ID)",
+    "useMockData": true
+  },
+  "prod": {
+    "tokenBaseUrl": "https://your-prod-token-base-url.com",
+    "apiBaseUrl": "https://your-prod-api-base-url.com",
+    "clientId": "YOUR_PROD_CLIENT_ID",
+    "clientSecret": "YOUR_PROD_CLIENT_SECRET",
+    "tokenEndpoint": "/YOUR-PROD-ID/oauth2/v2.0/token",
+    "scope": "SCOPE_FOR_PROD",
+    "companyIdEndpoint": "/companies(YOUR_PROD_COMPANY_ID)",
+    "useMockData": false
+  }
+}

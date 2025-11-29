@@ -4,6 +4,8 @@ class UserModel extends UserEntity {
   const UserModel({
     required super.id,
     required super.name,
+    required super.email,
+    required super.password,
     required super.deviceId,
     required super.passCode,
     required super.location,
@@ -14,6 +16,8 @@ class UserModel extends UserEntity {
     return UserModel(
       id: json['no'],
       name: json['name'],
+      email: json['email'] ?? '',
+      password: json['password'] ?? '',
       deviceId: json['deviceID'],
       passCode: json['passcode'],
       location: json['locationCode'],
@@ -24,9 +28,12 @@ class UserModel extends UserEntity {
   Map<String, dynamic> toJson() {
     return {
       'no': id,
-      'name': deviceId,
+      'name': name,
+      'email': email,
+      'password': password,
       'deviceID': deviceId,
       'passcode': passCode,
+      'locationCode': location,
       'collaboratingWorkshop': collaboratingWorkshop,
     };
   }

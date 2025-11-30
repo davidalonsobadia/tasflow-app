@@ -22,3 +22,14 @@ class AuthFailure extends AuthState {
   String get errorMessage => error.message;
   ErrorType get errorType => error.type;
 }
+
+// Registration states
+class RegistrationSuccess extends AuthState {
+  final UserEntity user;
+  RegistrationSuccess(this.user);
+}
+
+// Password reset states
+class PasswordResetEmailSent extends AuthState {}
+
+class PasswordResetSuccess extends AuthState {}

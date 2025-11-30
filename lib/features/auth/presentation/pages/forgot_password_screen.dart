@@ -8,41 +8,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskflow_app/core/utils/ui_utils.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   final _emailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
 
   bool _isLoading = false;
-  bool _obscurePassword = true;
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
     _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
     super.dispose();
   }
 
-  void _handleLogin() {
+  void _handleSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
         _isLoading = true;
       });
-      context.read<AuthCubit>().login(
-        _emailController.text.trim(),
-        _passwordController.text,
-      );
+      context.read<AuthCubit>().forgotPassword(_emailController.text.trim());
     }
   }
 
@@ -58,14 +50,26 @@ class _SignInScreenState extends State<SignInScreen> {
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: onBackgroundColor),
+            onPressed: () => context.pop(),
+          ),
+        ),
         body: SafeArea(
           child: BlocListener<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is Authenticated) {
+              if (state is PasswordResetEmailSent) {
                 setState(() {
                   _isLoading = false;
                 });
-                context.go('/main');
+                // Navigate to reset password screen with email
+                context.push(
+                  '/reset-password',
+                  extra: {'email': _emailController.text.trim()},
+                );
               } else if (state is AuthFailure) {
                 setState(() {
                   _isLoading = false;
@@ -79,26 +83,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: height * 0.1),
-                      Image.asset(
-                        'assets/images/taskflow_logo.png',
-                        width: 213,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(height: height * 0.05),
+                      SizedBox(height: height * 0.02),
                       Text(
-                        translate('welcome'),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        translate('forgotPassword'),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: height * 0.015),
+                      SizedBox(height: height * 0.01),
                       Text(
-                        translate('signInToContinue'),
+                        translate('enterEmailToResetPassword'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: onBackgroundColor,
+                          color: greyTextColor,
                         ),
                       ),
                       SizedBox(height: height * 0.04),
@@ -107,10 +105,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         controller: _emailController,
                         focusNode: _emailFocusNode,
                         keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (_) {
-                          _passwordFocusNode.requestFocus();
-                        },
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _handleSubmit(),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return translate('emailRequired');
@@ -153,90 +149,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           fillColor: whiteColor,
                         ),
                       ),
-                      SizedBox(height: height * 0.02),
-                      // Password field
-                      TextFormField(
-                        controller: _passwordController,
-                        focusNode: _passwordFocusNode,
-                        obscureText: _obscurePassword,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _handleLogin(),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return translate('passwordRequired');
-                          }
-                          if (value.length < 6) {
-                            return translate('passwordTooShort');
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: translate('password'),
-                          hintText: translate('enterYourPassword'),
-                          prefixIcon: const Icon(Icons.lock_outlined),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscurePassword
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _obscurePassword = !_obscurePassword;
-                              });
-                            },
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: primaryColor, width: 2),
-                          ),
-                          filled: true,
-                          fillColor: whiteColor,
-                        ),
-                      ),
-                      SizedBox(height: height * 0.015),
-                      // Forgot password link
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            context.push('/forgot-password');
-                          },
-                          child: Text(
-                            translate('forgotPassword'),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: primaryColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: height * 0.02),
-                      // Login button
+                      SizedBox(height: height * 0.04),
+                      // Submit button
                       SizedBox(
                         width: double.infinity,
                         height: height * 0.064,
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _handleLogin,
+                          onPressed: _isLoading ? null : _handleSubmit,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
@@ -251,7 +170,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: _isLoading
                               ? const CircularProgressIndicator(color: whiteColor)
                               : Text(
-                                  translate('logIn'),
+                                  translate('sendResetLink'),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -265,31 +184,21 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.03),
-                      // Register link
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            translate('dontHaveAccount'),
+                      // Back to login link
+                      Center(
+                        child: TextButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          child: Text(
+                            translate('backToLogin'),
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: greyTextColor,
+                              color: primaryColor,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              context.push('/register');
-                            },
-                            child: Text(
-                              translate('signUp'),
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      SizedBox(height: height * 0.05),
                     ],
                   ),
                 ),
@@ -301,3 +210,4 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
+

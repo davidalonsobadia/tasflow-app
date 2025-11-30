@@ -10,6 +10,12 @@ abstract class AuthRemoteDataSource {
   Future<UserModel?> getUserIfValidPassCode(String passCode);
   Future<UserModel> registerDevice(String deviceId, String verificationCode);
   Future<void> unbindDevice(String userId);
+
+  // Email/Password authentication methods
+  Future<UserModel?> loginWithEmailPassword(String email, String password);
+  Future<UserModel> registerUser(String email, String password, String name);
+  Future<void> requestPasswordReset(String email);
+  Future<void> resetPassword(String email, String newPassword, String token);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -134,6 +140,96 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     throw UnknownException(
       translate('deviceUnbindingFailed'),
       Exception(translate('deviceUnbindingFailed')),
+    );
+  }
+
+  @override
+  Future<UserModel?> loginWithEmailPassword(
+    String email,
+    String password,
+  ) async {
+    final queryParams = {
+      "\$filter": "email eq '$email' and password eq '$password'",
+    };
+    final response = await apiClient.get(
+      Endpoints.usersEndpoint,
+      params: queryParams,
+    );
+
+    if (response.statusCode == 200 &&
+        response.data['value'] != null &&
+        response.data['value'].isNotEmpty) {
+      final userData = response.data['value'][0];
+      return UserModel.fromJson(userData);
+    }
+
+    return null;
+  }
+
+  @override
+  Future<UserModel> registerUser(
+    String email,
+    String password,
+    String name,
+  ) async {
+    final body = {
+      'email': email,
+      'password': password,
+      'name': name,
+    };
+    final response = await apiClient.post(
+      Endpoints.usersEndpoint,
+      data: body,
+    );
+
+    if (response.statusCode == 201 && response.data != null) {
+      return UserModel.fromJson(response.data);
+    }
+    throw UnknownException(
+      translate('registrationFailed'),
+      Exception(translate('registrationFailed')),
+    );
+  }
+
+  @override
+  Future<void> requestPasswordReset(String email) async {
+    final body = {'email': email};
+    final response = await apiClient.post(
+      '${Endpoints.usersEndpoint}/password-reset-request',
+      data: body,
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    }
+    throw UnknownException(
+      translate('passwordResetRequestFailed'),
+      Exception(translate('passwordResetRequestFailed')),
+    );
+  }
+
+  @override
+  Future<void> resetPassword(
+    String email,
+    String newPassword,
+    String token,
+  ) async {
+    final body = {
+      'email': email,
+      'newPassword': newPassword,
+      'token': token,
+    };
+    final response = await apiClient.post(
+      '${Endpoints.usersEndpoint}/password-reset',
+      data: body,
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    }
+    throw UnknownException(
+      translate('passwordResetFailed'),
+      Exception(translate('passwordResetFailed')),
     );
   }
 }

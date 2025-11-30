@@ -8,40 +8,49 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskflow_app/core/utils/ui_utils.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  final String email;
+
+  const ResetPasswordScreen({super.key, required this.email});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final _tokenController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _emailFocusNode = FocusNode();
+  final _confirmPasswordController = TextEditingController();
+
+  final _tokenFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
+  final _confirmPasswordFocusNode = FocusNode();
 
   bool _isLoading = false;
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _tokenController.dispose();
     _passwordController.dispose();
-    _emailFocusNode.dispose();
+    _confirmPasswordController.dispose();
+    _tokenFocusNode.dispose();
     _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 
-  void _handleLogin() {
+  void _handleSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
       setState(() {
         _isLoading = true;
       });
-      context.read<AuthCubit>().login(
-        _emailController.text.trim(),
+      context.read<AuthCubit>().resetPassword(
+        widget.email,
         _passwordController.text,
+        _tokenController.text.trim(),
       );
     }
   }
@@ -58,14 +67,27 @@ class _SignInScreenState extends State<SignInScreen> {
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.surface,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: onBackgroundColor),
+            onPressed: () => context.pop(),
+          ),
+        ),
         body: SafeArea(
           child: BlocListener<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is Authenticated) {
+              if (state is PasswordResetSuccess) {
                 setState(() {
                   _isLoading = false;
                 });
-                context.go('/main');
+                UIUtils.showSuccessSnackBar(
+                  context,
+                  translate('passwordResetSuccessful'),
+                );
+                // Navigate back to login
+                context.go('/login');
               } else if (state is AuthFailure) {
                 setState(() {
                   _isLoading = false;
@@ -79,53 +101,72 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: height * 0.1),
-                      Image.asset(
-                        'assets/images/taskflow_logo.png',
-                        width: 213,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(height: height * 0.05),
+                      SizedBox(height: height * 0.02),
                       Text(
-                        translate('welcome'),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        translate('resetPassword'),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: height * 0.015),
+                      SizedBox(height: height * 0.01),
                       Text(
-                        translate('signInToContinue'),
+                        translate('enterResetCodeAndNewPassword'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: onBackgroundColor,
+                          color: greyTextColor,
                         ),
                       ),
-                      SizedBox(height: height * 0.04),
-                      // Email field
+                      SizedBox(height: height * 0.01),
+                      // Show email
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.04,
+                          vertical: height * 0.015,
+                        ),
+                        decoration: BoxDecoration(
+                          color: surfaceLightBlue,
+                          borderRadius: ResponsiveConstants.getRelativeBorderRadius(
+                            context,
+                            8,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.email_outlined, color: onSurfaceLightBlue),
+                            SizedBox(width: width * 0.02),
+                            Expanded(
+                              child: Text(
+                                widget.email,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(color: onSurfaceLightBlue),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: height * 0.03),
+                      // Token field (for mock, we accept MOCK_TOKEN)
                       TextFormField(
-                        controller: _emailController,
-                        focusNode: _emailFocusNode,
-                        keyboardType: TextInputType.emailAddress,
+                        controller: _tokenController,
+                        focusNode: _tokenFocusNode,
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: (_) {
                           _passwordFocusNode.requestFocus();
                         },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return translate('emailRequired');
-                          }
-                          if (!RegExp(
-                            r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                          ).hasMatch(value)) {
-                            return translate('invalidEmailFormat');
+                            return translate('resetCodeRequired');
                           }
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: translate('email'),
-                          hintText: translate('enterYourEmail'),
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          labelText: translate('resetCode'),
+                          hintText: translate('enterResetCode'),
+                          helperText: translate('mockTokenHint'),
+                          prefixIcon: const Icon(Icons.vpn_key_outlined),
                           border: OutlineInputBorder(
                             borderRadius:
                                 ResponsiveConstants.getRelativeBorderRadius(
@@ -154,13 +195,15 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.02),
-                      // Password field
+                      // New password field
                       TextFormField(
                         controller: _passwordController,
                         focusNode: _passwordFocusNode,
                         obscureText: _obscurePassword,
-                        textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (_) => _handleLogin(),
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (_) {
+                          _confirmPasswordFocusNode.requestFocus();
+                        },
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return translate('passwordRequired');
@@ -171,8 +214,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          labelText: translate('password'),
-                          hintText: translate('enterYourPassword'),
+                          labelText: translate('newPassword'),
+                          hintText: translate('enterNewPassword'),
                           prefixIcon: const Icon(Icons.lock_outlined),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -213,30 +256,73 @@ class _SignInScreenState extends State<SignInScreen> {
                           fillColor: whiteColor,
                         ),
                       ),
-                      SizedBox(height: height * 0.015),
-                      // Forgot password link
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            context.push('/forgot-password');
-                          },
-                          child: Text(
-                            translate('forgotPassword'),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: primaryColor,
-                              fontWeight: FontWeight.w500,
+                      SizedBox(height: height * 0.02),
+                      // Confirm password field
+                      TextFormField(
+                        controller: _confirmPasswordController,
+                        focusNode: _confirmPasswordFocusNode,
+                        obscureText: _obscureConfirmPassword,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (_) => _handleSubmit(),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return translate('confirmPasswordRequired');
+                          }
+                          if (value != _passwordController.text) {
+                            return translate('passwordsDoNotMatch');
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: translate('confirmPassword'),
+                          hintText: translate('confirmYourPassword'),
+                          prefixIcon: const Icon(Icons.lock_outlined),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscureConfirmPassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                             ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureConfirmPassword = !_obscureConfirmPassword;
+                              });
+                            },
                           ),
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                ResponsiveConstants.getRelativeBorderRadius(
+                                  context,
+                                  12,
+                                ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius:
+                                ResponsiveConstants.getRelativeBorderRadius(
+                                  context,
+                                  12,
+                                ),
+                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                ResponsiveConstants.getRelativeBorderRadius(
+                                  context,
+                                  12,
+                                ),
+                            borderSide: BorderSide(color: primaryColor, width: 2),
+                          ),
+                          filled: true,
+                          fillColor: whiteColor,
                         ),
                       ),
-                      SizedBox(height: height * 0.02),
-                      // Login button
+                      SizedBox(height: height * 0.04),
+                      // Submit button
                       SizedBox(
                         width: double.infinity,
                         height: height * 0.064,
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _handleLogin,
+                          onPressed: _isLoading ? null : _handleSubmit,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).colorScheme.primary,
                             shape: RoundedRectangleBorder(
@@ -251,7 +337,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: _isLoading
                               ? const CircularProgressIndicator(color: whiteColor)
                               : Text(
-                                  translate('logIn'),
+                                  translate('resetPassword'),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -265,31 +351,6 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       SizedBox(height: height * 0.03),
-                      // Register link
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            translate('dontHaveAccount'),
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: greyTextColor,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              context.push('/register');
-                            },
-                            child: Text(
-                              translate('signUp'),
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: primaryColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: height * 0.05),
                     ],
                   ),
                 ),
@@ -301,3 +362,4 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 }
+

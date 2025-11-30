@@ -8,6 +8,9 @@ import 'package:taskflow_app/features/debug/presentation/pages/mock_error_contro
 import 'package:taskflow_app/features/tasks/presentation/pages/task_overview_screen.dart';
 import 'package:taskflow_app/features/tasks/presentation/pages/task_tracking_screen.dart';
 import 'package:taskflow_app/features/auth/presentation/pages/sign_in_screen.dart';
+import 'package:taskflow_app/features/auth/presentation/pages/register_screen.dart';
+import 'package:taskflow_app/features/auth/presentation/pages/forgot_password_screen.dart';
+import 'package:taskflow_app/features/auth/presentation/pages/reset_password_screen.dart';
 import 'package:taskflow_app/features/products/domain/entities/product_entity.dart';
 import 'package:taskflow_app/features/products/presentation/pages/product_details_screen.dart';
 import 'package:taskflow_app/features/products/presentation/pages/products_list_screen.dart';
@@ -46,6 +49,22 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: '/login',
           builder: (context, state) => const SignInScreen(),
+        ),
+        GoRoute(
+          path: '/register',
+          builder: (context, state) => const RegisterScreen(),
+        ),
+        GoRoute(
+          path: '/forgot-password',
+          builder: (context, state) => const ForgotPasswordScreen(),
+        ),
+        GoRoute(
+          path: '/reset-password',
+          builder: (context, state) {
+            final params = state.extra as Map<String, dynamic>? ?? {};
+            final email = params['email'] as String? ?? '';
+            return ResetPasswordScreen(email: email);
+          },
         ),
 
         // Main shell route with bottom navigation

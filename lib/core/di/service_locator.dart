@@ -8,7 +8,11 @@ import 'package:taskflow_app/features/auth/data/data_sources/auth_mock_data_sour
 import 'package:taskflow_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:taskflow_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:taskflow_app/features/auth/domain/usecases/check_device_registered.dart';
+import 'package:taskflow_app/features/auth/domain/usecases/forgot_password_use_case.dart';
+import 'package:taskflow_app/features/auth/domain/usecases/login_use_case.dart';
 import 'package:taskflow_app/features/auth/domain/usecases/register_device.dart';
+import 'package:taskflow_app/features/auth/domain/usecases/register_user_use_case.dart';
+import 'package:taskflow_app/features/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:taskflow_app/features/auth/domain/usecases/unbind_device.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:taskflow_app/features/collaborations/data/data_sources/collaboration_remote_data_source.dart';
@@ -136,6 +140,10 @@ void setupServiceLocator() {
   );
   sl.registerLazySingleton(() => RegisterDeviceUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => UnbindDeviceUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => LoginUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => RegisterUserUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => ForgotPasswordUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => ResetPasswordUseCase(sl<AuthRepository>()));
   sl.registerLazySingleton(() => GetTasksUseCase(sl<TaskRepository>()));
   sl.registerLazySingleton(() => EditTasksUseCase(sl<TaskRepository>()));
   sl.registerLazySingleton(() => GetProductsUseCase(sl<ProductRepository>()));
@@ -162,6 +170,10 @@ void setupServiceLocator() {
       sl<CheckDeviceRegisteredUseCase>(),
       sl<RegisterDeviceUseCase>(),
       sl<UnbindDeviceUseCase>(),
+      sl<LoginUseCase>(),
+      sl<RegisterUserUseCase>(),
+      sl<ForgotPasswordUseCase>(),
+      sl<ResetPasswordUseCase>(),
     ),
   );
   sl.registerFactory(

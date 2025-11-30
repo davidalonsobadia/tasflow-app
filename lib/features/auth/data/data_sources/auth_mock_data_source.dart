@@ -48,14 +48,14 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final user = _mockUsers.where((u) => u['deviceID'] == deviceId).toList();
-    
+
     if (user.length > 1) {
       throw ValidationException(
         translate('multipleAccountsFoundWithSameDeviceId'),
         Exception(translate('multipleAccountsFoundWithSameDeviceId')),
       );
     }
-    
+
     return user.isNotEmpty;
   }
 
@@ -65,18 +65,18 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final users = _mockUsers.where((u) => u['deviceID'] == deviceId).toList();
-    
+
     if (users.length > 1) {
       throw ValidationException(
         translate('multipleAccountsFoundWithSameDeviceId'),
         Exception(translate('multipleAccountsFoundWithSameDeviceId')),
       );
     }
-    
+
     if (users.isEmpty) {
       return null;
     }
-    
+
     return UserModel.fromJson(users.first);
   }
 
@@ -86,17 +86,17 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     await Future.delayed(const Duration(milliseconds: 800));
 
     final userIndex = _mockUsers.indexWhere((u) => u['no'] == userId);
-    
+
     if (userIndex == -1) {
       throw UnknownException(
         translate('deviceRegistrationFailed'),
         Exception(translate('deviceRegistrationFailed')),
       );
     }
-    
+
     // Update the mock user's device ID
     _mockUsers[userIndex]['deviceID'] = deviceId;
-    
+
     return UserModel.fromJson(_mockUsers[userIndex]);
   }
 
@@ -106,18 +106,18 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     await Future.delayed(const Duration(milliseconds: 500));
 
     final users = _mockUsers.where((u) => u['passcode'] == passCode).toList();
-    
+
     if (users.length > 1) {
       throw ValidationException(
         translate('multipleAccountsFoundWithSamePassCode'),
         Exception('multipleAccountsFoundWithSamePassCode'),
       );
     }
-    
+
     if (users.isEmpty) {
       return null;
     }
-    
+
     return UserModel.fromJson(users.first);
   }
 
@@ -149,9 +149,7 @@ class AuthMockDataSource implements AuthRemoteDataSource {
 
     final users =
         _mockUsers
-            .where(
-              (u) => u['email'] == email && u['password'] == password,
-            )
+            .where((u) => u['email'] == email && u['password'] == password)
             .toList();
 
     if (users.isEmpty) {
@@ -180,8 +178,9 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     }
 
     // Create new user
+    _userIdCounter++;
     final newUser = {
-      'no': 'USER${_userIdCounter++.toString().padLeft(3, '0')}',
+      'no': 'USER${_userIdCounter.toString().padLeft(3, '0')}',
       'name': name,
       'email': email,
       'password': password,
@@ -249,4 +248,3 @@ class AuthMockDataSource implements AuthRemoteDataSource {
     _passwordResetTokens.remove(email);
   }
 }
-

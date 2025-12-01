@@ -84,36 +84,36 @@ class AppSizes {
 /// ------------------------------------------------------------
 class AppShadows {
   static List<BoxShadow> get shadowXs => [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 1,
-          offset: const Offset(0, 1),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withOpacity(0.05),
+      blurRadius: 1,
+      offset: const Offset(0, 1),
+    ),
+  ];
 
   static List<BoxShadow> get shadowSm => [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.05),
-          blurRadius: 2,
-          offset: const Offset(0, 1),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withOpacity(0.05),
+      blurRadius: 2,
+      offset: const Offset(0, 1),
+    ),
+  ];
 
   static List<BoxShadow> get shadowMd => [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 6,
-          offset: const Offset(0, 4),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withOpacity(0.1),
+      blurRadius: 6,
+      offset: const Offset(0, 4),
+    ),
+  ];
 
   static List<BoxShadow> get shadowLg => [
-        BoxShadow(
-          color: Colors.black.withOpacity(0.1),
-          blurRadius: 15,
-          offset: const Offset(0, 10),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withOpacity(0.1),
+      blurRadius: 15,
+      offset: const Offset(0, 10),
+    ),
+  ];
 }
 
 /// ------------------------------------------------------------
@@ -294,7 +294,7 @@ ThemeData theme = ThemeData(
   ),
 
   // Card Theme
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: cardColor,
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -305,7 +305,7 @@ ThemeData theme = ThemeData(
   ),
 
   // Dialog Theme
-  dialogTheme: DialogTheme(
+  dialogTheme: DialogThemeData(
     backgroundColor: backgroundColor,
     elevation: 0,
     shape: RoundedRectangleBorder(
@@ -483,7 +483,7 @@ ThemeData theme = ThemeData(
   ),
 
   // Tab Bar Theme
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: TabBarThemeData(
     labelColor: foregroundColor,
     unselectedLabelColor: mutedForegroundColor,
     indicator: const UnderlineTabIndicator(

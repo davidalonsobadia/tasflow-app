@@ -91,4 +91,4 @@ flutter:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/icons/taskflow_app_logo_white.png"
+  image_path: "assets/icons/taskflow_logo.png"

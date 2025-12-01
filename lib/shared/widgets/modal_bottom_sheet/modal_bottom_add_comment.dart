@@ -104,12 +104,12 @@ class _AddCommentModalContentState extends State<_AddCommentModalContent> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: whiteColor,
+              color: cardColor,
               borderRadius: ResponsiveConstants.getRelativeBorderRadius(
                 context,
                 12,
               ),
-              border: Border.all(color: lightGreyColor),
+              border: Border.all(color: borderColor),
             ),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,7 +151,7 @@ class _AddCommentModalContentState extends State<_AddCommentModalContent> {
               ),
               child: Text(
                 translate('recordingReleaseToStop'),
-                style: TextStyle(color: redTextColor, fontSize: 12),
+                style: TextStyle(color: destructiveColor, fontSize: 12),
               ),
             ),
         ],

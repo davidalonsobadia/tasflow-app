@@ -47,7 +47,7 @@ class _ConnectivityCheckScreenState extends State<ConnectivityCheckScreen> {
 
   Widget _buildNoConnectionScreen(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: backgroundColor,
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -81,7 +81,7 @@ class _ConnectivityCheckScreenState extends State<ConnectivityCheckScreen> {
                   textAlign: TextAlign.center,
                   style: Theme.of(
                     context,
-                  ).textTheme.bodyMedium?.copyWith(color: greyTextColor),
+                  ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
                 ),
                 SizedBox(
                   height: ResponsiveConstants.getRelativeHeight(context, 24),
@@ -90,7 +90,7 @@ class _ConnectivityCheckScreenState extends State<ConnectivityCheckScreen> {
                   onPressed: _checkInitialConnectivity,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
-                    foregroundColor: onPrimaryColor,
+                    foregroundColor: primaryForegroundColor,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 12,

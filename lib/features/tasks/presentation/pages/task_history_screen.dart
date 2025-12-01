@@ -158,11 +158,11 @@ class _TaskHistoryScreenState extends State<TaskHistoryScreen> {
         ),
         Container(
           decoration: BoxDecoration(
-            color: lightGreyColor.withAlpha((0.2 * 255).toInt()),
+            color: borderColor.withAlpha((0.2 * 255).toInt()),
             borderRadius:
                 ResponsiveConstants.getRelativeBorderRadius(context, 8),
             border: Border.all(
-              color: lightGreyColor.withAlpha((0.5 * 255).toInt()),
+              color: borderColor.withAlpha((0.5 * 255).toInt()),
             ),
           ),
         ),
@@ -234,7 +234,12 @@ class _TaskHistoryScreenState extends State<TaskHistoryScreen> {
 
   Widget _buildTaskList() {
     return _filteredTasks.isEmpty
-        ? Center(child: Text(translate('noTasksFound')))
+        ? Center(
+            child: Text(
+              translate('noTasksFound'),
+              style: TextStyle(color: mutedForegroundColor),
+            ),
+          )
         : ListView.builder(
           itemCount: _filteredTasks.length,
           padding: EdgeInsets.symmetric(

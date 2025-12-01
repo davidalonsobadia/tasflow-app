@@ -31,7 +31,7 @@ class ImageUtils {
   /// Build placeholder for uploading images
   static Widget buildUploadingPlaceholder({BoxFit fit = BoxFit.cover}) {
     return Container(
-      color: onPrimaryColor,
+      color: secondaryColor,
       width: double.infinity,
       height: double.infinity,
       child: const Center(child: CircularProgressIndicator()),

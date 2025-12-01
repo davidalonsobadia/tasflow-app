@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +18,14 @@ class RefreshButtonInSearchBar extends StatelessWidget {
           ResponsiveConstants.getRelativeWidth(context, 13),
         ),
         decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
-          border: Border.all(color: lightGreyColor, width: 1),
+          color: cardColor,
+          borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+          border: Border.all(color: borderColor, width: 1),
         ),
         child: Icon(
           CupertinoIcons.arrow_2_circlepath,
           size: ResponsiveConstants.getRelativeWidth(context, 24),
+          color: foregroundColor,
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class LoadingOverlay {
@@ -25,7 +26,7 @@ class LoadingOverlay {
     _overlayEntry = OverlayEntry(
       builder:
           (context) => Material(
-            color: Colors.black54, // Semi-transparent background
+            color: overlayColor, // Semi-transparent background
             child: Center(
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -33,20 +34,10 @@ class LoadingOverlay {
                   vertical: ResponsiveConstants.getRelativeHeight(context, 16),
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius:
-                      ResponsiveConstants.getRelativeBorderRadius(context, 8),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius:
-                          ResponsiveConstants.getRelativeWidth(context, 10),
-                      offset: Offset(
-                        0,
-                        ResponsiveConstants.getRelativeHeight(context, 4),
-                      ),
-                    ),
-                  ],
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+                  border: Border.all(color: borderColor, width: 1),
+                  boxShadow: AppShadows.shadowLg,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -60,6 +51,7 @@ class LoadingOverlay {
                       message!,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w500,
+                        color: foregroundColor,
                       ),
                     ),
                   ],

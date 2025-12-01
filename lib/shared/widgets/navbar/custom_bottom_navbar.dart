@@ -35,7 +35,10 @@ class CustomBottomNavBar extends StatelessWidget {
         top: ResponsiveConstants.getRelativeHeight(context, 16),
         bottom: _getPlatformBottomPadding(context),
       ),
-      decoration: BoxDecoration(color: whiteColor),
+      decoration: BoxDecoration(
+        color: cardColor,
+        border: Border(top: BorderSide(color: borderColor, width: 1)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

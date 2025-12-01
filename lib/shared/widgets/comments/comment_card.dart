@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/features/comments/domain/entities/comment_entity.dart';
 import 'package:taskflow_app/shared/widgets/products/trash_icon.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,9 @@ class CommentCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
-        border: Border.all(color: borderLightGreyColor, width: 1),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+        border: Border.all(color: borderColor, width: 1),
       ),
       padding: EdgeInsets.symmetric(
         vertical: ResponsiveConstants.getRelativeHeight(context, 10),
@@ -32,7 +34,7 @@ class CommentCard extends StatelessWidget {
                 comment.date,
                 style: Theme.of(
                   context,
-                ).textTheme.bodySmall?.copyWith(color: greyTextColor),
+                ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
               ),
               TrashIcon(onDelete: onDelete),
             ],
@@ -42,7 +44,7 @@ class CommentCard extends StatelessWidget {
             comment.message,
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: textColor),
+            ).textTheme.bodySmall?.copyWith(color: foregroundColor),
           ),
         ],
       ),

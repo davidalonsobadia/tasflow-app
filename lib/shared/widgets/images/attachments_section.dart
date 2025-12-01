@@ -177,7 +177,11 @@ class _AttachmentsSectionState extends State<AttachmentsSection> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.arrow_left, size: 40),
+                            icon: Icon(
+                              Icons.arrow_left,
+                              size: 40,
+                              color: foregroundColor,
+                            ),
                             onPressed: moveLeft,
                           ),
                           SizedBox(
@@ -187,7 +191,11 @@ class _AttachmentsSectionState extends State<AttachmentsSection> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.arrow_right, size: 40),
+                            icon: Icon(
+                              Icons.arrow_right,
+                              size: 40,
+                              color: foregroundColor,
+                            ),
                             onPressed: moveRight,
                           ),
                         ],
@@ -249,8 +257,8 @@ class NewThumbnail extends StatelessWidget {
             ResponsiveConstants.getRelativeWidth(context, 16),
           ),
           dashPattern: [5, 4],
-          color: lightGreyColor,
-          child: Center(child: Icon(Icons.add)),
+          color: borderColor,
+          child: Center(child: Icon(Icons.add, color: foregroundColor)),
         ),
       ),
     );
@@ -266,7 +274,7 @@ class EmptyThumbnail extends StatelessWidget {
       width: ResponsiveConstants.getRelativeWidth(context, 75),
       height: ResponsiveConstants.getRelativeHeight(context, 75),
       decoration: BoxDecoration(
-        color: onPrimaryColor,
+        color: secondaryColor,
         borderRadius:
             ResponsiveConstants.getRelativeBorderRadius(context, 12),
       ),

@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class StyledTextField extends StatelessWidget {
@@ -36,19 +37,20 @@ class StyledTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
-        border: showBorder ? Border.all(color: Colors.grey.shade300) : null,
+        color: cardColor,
+        borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+        border: showBorder ? Border.all(color: borderColor, width: 1) : null,
       ),
       child: TextField(
         controller: controller,
         focusNode: focusNode,
+        style: TextStyle(color: foregroundColor),
         decoration: InputDecoration(
           hintText: hintText,
           prefixText: prefixText,
           hintStyle: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade400),
+          ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           border: InputBorder.none,
           contentPadding: EdgeInsets.symmetric(
             horizontal: ResponsiveConstants.getRelativeWidth(context, 16),

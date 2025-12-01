@@ -55,7 +55,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                 children: [
                   IconButton(
                     onPressed: () => context.pop(),
-                    icon: Icon(Icons.close, color: whiteColor),
+                    icon: Icon(Icons.close, color: primaryForegroundColor),
                   ),
                   IconButton(
                     onPressed:
@@ -64,7 +64,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                           photos[_selectedPhotoIndex].taskId,
                           photos[_selectedPhotoIndex].systemId,
                         ),
-                    icon: Icon(Icons.delete, color: whiteColor),
+                    icon: Icon(Icons.delete, color: primaryForegroundColor),
                   ),
                 ],
               ),
@@ -87,7 +87,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                   ),
                   style: Theme.of(
                     context,
-                  ).textTheme.bodySmall?.copyWith(color: lightGreyColor),
+                  ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
                   textAlign: TextAlign.end,
                 ),
               ),
@@ -113,7 +113,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                               border: Border.all(
                                 color:
                                     _selectedPhotoIndex == index
-                                        ? whiteColor
+                                        ? primaryForegroundColor
                                         : Colors.transparent,
                                 width: 2,
                               ),

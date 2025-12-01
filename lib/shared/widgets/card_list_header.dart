@@ -30,9 +30,10 @@ class CardListHeader extends StatelessWidget {
         Center(
           child: Text(
             title,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: foregroundColor,
+            ),
           ),
         ),
         Spacer(),

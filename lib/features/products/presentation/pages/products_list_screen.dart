@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
+import 'package:taskflow_app/config/themes/colors_config.dart';
 import 'package:taskflow_app/features/products/domain/entities/product_entity.dart';
 import 'package:taskflow_app/shared/widgets/loading_indicators/loading_indicator_in_card_item.dart';
 import 'package:taskflow_app/shared/widgets/buttons/refresh_button_in_search_bar.dart';
@@ -186,7 +187,12 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
               }
               final loaded = state as ProductListLoaded;
               if (loaded.products.isEmpty) {
-                return Center(child: Text(translate('noProductsFound')));
+                return Center(
+                  child: Text(
+                    translate('noProductsFound'),
+                    style: TextStyle(color: mutedForegroundColor),
+                  ),
+                );
               }
               return ListView.builder(
                 controller: _scrollController,

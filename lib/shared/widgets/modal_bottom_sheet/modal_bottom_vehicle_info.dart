@@ -104,22 +104,23 @@ class _VehicleInfoContentState extends State<_VehicleInfoContent> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: cardColor,
               borderRadius:
                   ResponsiveConstants.getRelativeBorderRadius(context, 12),
-              border: Border.all(color: Colors.grey.shade300),
+              border: Border.all(color: borderColor),
             ),
             child: TextField(
               controller: _controller,
+              style: TextStyle(color: foregroundColor),
               decoration: InputDecoration(
                 hintText: translate('enterTaskId'),
                 hintStyle: Theme.of(
                   context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade400),
+                ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
                 prefixText: 'PS-',
                 prefixStyle: Theme.of(
                   context,
-                ).textTheme.bodyMedium?.copyWith(color: Colors.grey.shade600),
+                ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: ResponsiveConstants.getRelativeWidth(context, 16),
@@ -150,8 +151,7 @@ class _VehicleInfoContentState extends State<_VehicleInfoContent> {
                     _controller.clear();
                   });
                 },
-                backgroundColor: lightGreyColor,
-                textColor: blackColor,
+                variant: ButtonVariant.secondary,
               ),
               OutlinedAppButton(
                 text: translate('confirm'),
@@ -164,8 +164,7 @@ class _VehicleInfoContentState extends State<_VehicleInfoContent> {
                             _findAndHandleTask(taskId);
                           }
                         },
-                backgroundColor: primaryColor,
-                textColor: onPrimaryColor,
+                variant: ButtonVariant.primary,
               ),
             ],
           ),

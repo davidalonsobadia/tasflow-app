@@ -14,7 +14,7 @@ class ThumbnailUploading extends StatelessWidget {
       width: ResponsiveConstants.getRelativeWidth(context, 90),
       height: ResponsiveConstants.getRelativeHeight(context, 90),
       decoration: BoxDecoration(
-        color: onPrimaryColor,
+        color: secondaryColor,
         borderRadius:
             ResponsiveConstants.getRelativeBorderRadius(context, 12),
       ),
@@ -32,7 +32,7 @@ class ThumbnailUploading extends StatelessWidget {
           // Image should be with a blurry grey (indicating it is loading)
           Container(
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.5),
+              color: mutedColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(12),
             ),
           ),
@@ -41,7 +41,7 @@ class ThumbnailUploading extends StatelessWidget {
           Center(
             child: CircularProgressIndicator(
               strokeWidth: 3.5,
-              color: blackColor,
+              color: foregroundColor,
             ),
           ),
         ],

@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,10 +27,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: whiteColor,
+      backgroundColor: backgroundColor,
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back_ios,
+          color: foregroundColor,
           size: ResponsiveConstants.getRelativeWidth(context, 20),
         ),
         onPressed: widget.onBackPressed ?? () => context.pop(),
@@ -48,6 +50,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               child: IconButton(
                 icon: Icon(
                   Icons.close,
+                  color: foregroundColor,
                   size: ResponsiveConstants.getRelativeWidth(context, 24),
                 ),
                 onPressed: widget.onBackPressed ?? () => context.go('/main'),
@@ -57,10 +60,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             ),
           ],
-      titleTextStyle: Theme.of(
-        context,
-      ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+      titleTextStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+        fontWeight: FontWeight.w600,
+        color: foregroundColor,
+      ),
       elevation: 0,
+      scrolledUnderElevation: 0,
       centerTitle: true,
     );
   }

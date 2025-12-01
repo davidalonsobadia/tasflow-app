@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +50,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: onBackgroundColor),
+            icon: Icon(Icons.arrow_back, color: foregroundColor),
             onPressed: () => context.pop(),
           ),
         ),
@@ -90,13 +91,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         translate('forgotPassword'),
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: foregroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.01),
                       Text(
                         translate('enterEmailToResetPassword'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: greyTextColor,
+                          color: mutedForegroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.04),
@@ -121,33 +123,27 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         decoration: InputDecoration(
                           labelText: translate('email'),
                           hintText: translate('enterYourEmail'),
-                          prefixIcon: const Icon(Icons.email_outlined),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: mutedForegroundColor,
+                          ),
+                          labelStyle: TextStyle(color: mutedForegroundColor),
+                          hintStyle: TextStyle(color: mutedForegroundColor),
                           border: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+                            borderSide: BorderSide(color: borderColor, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                             borderSide: BorderSide(color: primaryColor, width: 2),
                           ),
                           filled: true,
-                          fillColor: whiteColor,
+                          fillColor: cardColor,
                         ),
+                        style: TextStyle(color: foregroundColor),
                       ),
                       SizedBox(height: height * 0.04),
                       // Submit button
@@ -157,18 +153,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _handleSubmit,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            backgroundColor: primaryColor,
+                            foregroundColor: primaryForegroundColor,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                             ),
                             elevation: 0,
                           ),
                           child: _isLoading
-                              ? const CircularProgressIndicator(color: whiteColor)
+                              ? CircularProgressIndicator(
+                                  color: primaryForegroundColor,
+                                )
                               : Text(
                                   translate('sendResetLink'),
                                   style: Theme.of(context)
@@ -176,9 +173,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       .bodyMedium
                                       ?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
+                                        color: primaryForegroundColor,
                                       ),
                                 ),
                         ),

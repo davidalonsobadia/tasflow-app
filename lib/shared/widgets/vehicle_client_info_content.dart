@@ -28,7 +28,7 @@ class VehicleClientInfoContent extends StatelessWidget {
             radius: Radius.circular(
               ResponsiveConstants.getRelativeWidth(context, 8),
             ),
-            color: lightGreyColor,
+            color: borderColor,
             child: Padding(
               padding: EdgeInsets.all(
                 ResponsiveConstants.getRelativeWidth(context, 24),
@@ -38,7 +38,7 @@ class VehicleClientInfoContent extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.qr_code_outlined,
-                    color: textColor,
+                    color: foregroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 24),
                   ),
                   SizedBox(
@@ -48,7 +48,7 @@ class VehicleClientInfoContent extends StatelessWidget {
                     translate('scanQrCode'),
                     style: Theme.of(
                       context,
-                    ).textTheme.bodyMedium?.copyWith(color: textColor),
+                    ).textTheme.bodyMedium?.copyWith(color: foregroundColor),
                   ),
                 ],
               ),
@@ -62,7 +62,7 @@ class VehicleClientInfoContent extends StatelessWidget {
             translate('or'),
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: greyTextColor),
+            ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
             textAlign: TextAlign.center,
           ),
         ),
@@ -72,7 +72,7 @@ class VehicleClientInfoContent extends StatelessWidget {
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: onPrimaryColor,
+              color: secondaryColor,
               borderRadius:
                   ResponsiveConstants.getRelativeBorderRadius(context, 8),
             ),
@@ -85,7 +85,7 @@ class VehicleClientInfoContent extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.keyboard,
-                    color: greyTextColor,
+                    color: mutedForegroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 24),
                   ),
                   SizedBox(
@@ -95,7 +95,7 @@ class VehicleClientInfoContent extends StatelessWidget {
                     translate('enterManually'),
                     style: Theme.of(
                       context,
-                    ).textTheme.bodyMedium?.copyWith(color: textColor),
+                    ).textTheme.bodyMedium?.copyWith(color: foregroundColor),
                   ),
                 ],
               ),
@@ -106,7 +106,7 @@ class VehicleClientInfoContent extends StatelessWidget {
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 8)),
           Text(
             errorMessage!,
-            style: TextStyle(color: errorColor, fontSize: 12),
+            style: TextStyle(color: destructiveColor, fontSize: 12),
           ),
         ],
         SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 16)),

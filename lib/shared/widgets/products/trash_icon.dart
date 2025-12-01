@@ -25,7 +25,7 @@ class TrashIcon extends StatelessWidget {
             'assets/icons/icon_bin.svg',
             width: ResponsiveConstants.getRelativeWidth(context, 14),
             height: ResponsiveConstants.getRelativeHeight(context, 16),
-            colorFilter: ColorFilter.mode(mediumGreyColor, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(mutedForegroundColor, BlendMode.srcIn),
           ),
         ),
       ),

@@ -1,6 +1,9 @@
-import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
+
+/// Button variants following the design system
+enum ButtonVariant { primary, secondary, outline, ghost, destructive }
 
 class OutlinedAppButton extends StatelessWidget {
   final String text;
@@ -9,6 +12,7 @@ class OutlinedAppButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
   final double? width;
+  final ButtonVariant variant;
 
   const OutlinedAppButton({
     super.key,
@@ -18,63 +22,96 @@ class OutlinedAppButton extends StatelessWidget {
     this.textColor,
     this.borderColor,
     this.width,
+    this.variant = ButtonVariant.primary,
   });
 
   @override
   Widget build(BuildContext context) {
-    final Color bgColor =
-        backgroundColor ?? whiteColor.withAlpha((0.20 * 255).toInt());
-    // Create a darker version of the background color for the border
-    final Color border = borderColor ?? _getDarkerColor(bgColor);
+    final colors = _getVariantColors();
+    final Color bgColor = backgroundColor ?? colors.background;
+    final Color fgColor = textColor ?? colors.foreground;
+    final Color border = borderColor ?? colors.border;
 
     return SizedBox(
-      width: width ?? ResponsiveConstants.getRelativeWidth(context, 140),
+      width: width,
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(bgColor),
-          padding: WidgetStatePropertyAll(
+          foregroundColor: WidgetStatePropertyAll(fgColor),
+          elevation: const WidgetStatePropertyAll(0),
+          padding: const WidgetStatePropertyAll(
             EdgeInsets.symmetric(
-              vertical: ResponsiveConstants.getRelativeHeight(context, 10),
+              horizontal: AppSpacing.space4,
+              vertical: AppSpacing.space2,
             ),
           ),
-          side: WidgetStatePropertyAll(BorderSide(color: border)),
+          side: WidgetStatePropertyAll(BorderSide(color: border, width: 1)),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
-              borderRadius:
-                  ResponsiveConstants.getRelativeBorderRadius(context, 8),
+              borderRadius: BorderRadius.circular(AppRadius.radiusMd),
             ),
+          ),
+          minimumSize: const WidgetStatePropertyAll(
+            Size(0, AppSizes.buttonHeightDefault),
           ),
         ),
         onPressed: onPressed,
         child: Text(
           text,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium!.copyWith(color: textColor ?? backgroundColor),
-          textAlign: TextAlign.start,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            color: fgColor,
+            fontWeight: FontWeight.w500,
+          ),
+          textAlign: TextAlign.center,
         ),
       ),
     );
   }
 
-  // Helper method to create a darker version of a color
-  Color _getDarkerColor(Color color) {
-    // If the color is already very dark, use a lighter shade for contrast
-    if (_isColorDark(color)) {
-      return color.withOpacity(0.8);
+  _ButtonColors _getVariantColors() {
+    switch (variant) {
+      case ButtonVariant.primary:
+        return _ButtonColors(
+          background: buttonDefaultBgColor,
+          foreground: buttonDefaultFgColor,
+          border: buttonDefaultBgColor,
+        );
+      case ButtonVariant.secondary:
+        return _ButtonColors(
+          background: buttonSecondaryBgColor,
+          foreground: buttonSecondaryFgColor,
+          border: buttonSecondaryBgColor,
+        );
+      case ButtonVariant.outline:
+        return _ButtonColors(
+          background: Colors.transparent,
+          foreground: buttonOutlineFgColor,
+          border: buttonOutlineBorderColor,
+        );
+      case ButtonVariant.ghost:
+        return _ButtonColors(
+          background: Colors.transparent,
+          foreground: buttonGhostFgColor,
+          border: Colors.transparent,
+        );
+      case ButtonVariant.destructive:
+        return _ButtonColors(
+          background: buttonDestructiveBgColor,
+          foreground: buttonDestructiveFgColor,
+          border: buttonDestructiveBgColor,
+        );
     }
-
-    // Create a darker version by reducing brightness by 20%
-    final HSLColor hsl = HSLColor.fromColor(color);
-    return hsl.withLightness((hsl.lightness - 0.2).clamp(0.0, 1.0)).toColor();
   }
+}
 
-  // Helper to determine if a color is dark
-  bool _isColorDark(Color color) {
-    // Calculate perceived brightness using the formula
-    // (299*R + 587*G + 114*B) / 1000
-    final double brightness =
-        (299 * color.red + 587 * color.green + 114 * color.blue) / 1000;
-    return brightness < 128; // If less than 128, considered dark
-  }
+class _ButtonColors {
+  final Color background;
+  final Color foreground;
+  final Color border;
+
+  _ButtonColors({
+    required this.background,
+    required this.foreground,
+    required this.border,
+  });
 }

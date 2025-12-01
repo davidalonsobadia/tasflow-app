@@ -44,17 +44,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
             padding: EdgeInsets.all(
               ResponsiveConstants.getRelativeHeight(context, 16),
             ),
-            color: whiteColor,
+            color: backgroundColor,
             child: Text(
               translate('settings'),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: foregroundColor,
+              ),
             ),
           ),
           Container(
             decoration: BoxDecoration(
-              border: Border(top: BorderSide(color: onPrimaryColor, width: 1)),
+              border: Border(top: BorderSide(color: borderColor, width: 1)),
             ),
           ),
           BlocBuilder<AuthCubit, AuthState>(
@@ -79,11 +80,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundColor: onPrimaryColor,
+                        backgroundColor: primaryColor,
                         child: Text(
                           initials.isEmpty ? 'U' : initials,
                           style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(fontWeight: FontWeight.w700),
+                              ?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: primaryForegroundColor,
+                              ),
                         ),
                       ),
                       SizedBox(
@@ -96,7 +100,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         child: Text(
                           name,
                           style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: foregroundColor,
+                              ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -138,7 +145,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                       child: Row(
                         children: [
-                          Icon(Icons.logout, color: redTextColor),
+                          Icon(Icons.logout, color: destructiveColor),
                           SizedBox(
                             width: ResponsiveConstants.getRelativeWidth(
                               context,
@@ -148,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text(
                             translate('unbindDevice'),
                             style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(color: redTextColor),
+                                ?.copyWith(color: destructiveColor),
                           ),
                         ],
                       ),

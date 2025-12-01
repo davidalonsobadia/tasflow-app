@@ -88,10 +88,7 @@ class _BaseModalBottomSheetState extends State<BaseModalBottomSheet> {
           // When we want to resize to content
           Container(
             width: double.infinity,
-            decoration: BoxDecoration(
-              color: backgroundColor,
-              border: Border(top: BorderSide(color: onPrimaryColor, width: 1)),
-            ),
+            decoration: BoxDecoration(color: backgroundColor),
             child: widget.content,
           )
         else
@@ -99,12 +96,7 @@ class _BaseModalBottomSheetState extends State<BaseModalBottomSheet> {
           Expanded(
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                border: Border(
-                  top: BorderSide(color: onPrimaryColor, width: 1),
-                ),
-              ),
+              decoration: BoxDecoration(color: backgroundColor),
               child: SingleChildScrollView(
                 physics: const ClampingScrollPhysics(),
                 child: widget.content,

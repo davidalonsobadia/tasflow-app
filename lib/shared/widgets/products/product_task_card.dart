@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/core/utils/format_utils.dart';
 import 'package:taskflow_app/features/products/domain/entities/product_task_with_transfer_entity.dart';
 import 'package:taskflow_app/shared/widgets/products/trash_icon.dart';
@@ -28,8 +29,9 @@ class ProductTaskCard extends StatelessWidget {
         horizontal: ResponsiveConstants.getRelativeWidth(context, 10),
       ),
       decoration: BoxDecoration(
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
-        border: Border.all(color: borderLightGreyColor, width: 1),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+        border: Border.all(color: borderColor, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +44,10 @@ class ProductTaskCard extends StatelessWidget {
                   productWithTransfer.product.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: foregroundColor,
+                  ),
                 ),
               ),
               TrashIcon(onDelete: () => _showDeleteConfirmationDialog(context)),
@@ -53,7 +56,9 @@ class ProductTaskCard extends StatelessWidget {
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 5)),
           Text(
             productWithTransfer.product.id,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 20)),
           Row(
@@ -69,7 +74,9 @@ class ProductTaskCard extends StatelessWidget {
                     ),
                   },
                 ),
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
               ),
               if (productWithTransfer.transferStatus !=
                   TransferStatus.notApplicable) ...[
@@ -112,28 +119,28 @@ class ProductTaskCard extends StatelessWidget {
 
     switch (status) {
       case TransferStatus.pending:
-        badgeColor = pendingColor;
-        textColor = onPendingColor;
+        badgeColor = priorityMediumColor.withAlpha(25);
+        textColor = priorityMediumColor;
         translatedStatus = translate('pending');
         break;
       case TransferStatus.partial:
-        badgeColor = lightBlue;
-        textColor = onLightBlue;
+        badgeColor = priorityLowColor.withAlpha(25);
+        textColor = priorityLowColor;
         translatedStatus = translate('partial');
         break;
       case TransferStatus.completed:
-        badgeColor = inProgressColor;
-        textColor = onInProgressColor;
+        badgeColor = chartColors[1].withAlpha(25);
+        textColor = chartColors[1];
         translatedStatus = translate('completed');
         break;
       case TransferStatus.unknown:
-        badgeColor = lightGreyColor;
-        textColor = greyTextColor;
+        badgeColor = secondaryColor;
+        textColor = mutedForegroundColor;
         translatedStatus = translate('unknown');
         break;
       case TransferStatus.notApplicable:
         badgeColor = Colors.transparent;
-        textColor = greyTextColor;
+        textColor = mutedForegroundColor;
         translatedStatus = '';
         break;
     }
@@ -145,7 +152,7 @@ class ProductTaskCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: badgeColor,
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 10),
+        borderRadius: BorderRadius.circular(AppRadius.radiusMd),
       ),
       child: Text(
         translatedStatus,

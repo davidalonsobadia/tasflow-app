@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
-import 'package:taskflow_app/config/constants/responsive_constants.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 
 class CardContainer extends StatelessWidget {
   final Widget child;
@@ -27,28 +27,16 @@ class CardContainer extends StatelessWidget {
       height: height,
       margin: margin,
       decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(
-          context,
-          borderRadius ?? 12,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(158, 158, 158, 0.2),
-            spreadRadius: ResponsiveConstants.getRelativeWidth(context, 2),
-            blurRadius: ResponsiveConstants.getRelativeWidth(context, 4),
-            offset: Offset(0, ResponsiveConstants.getRelativeHeight(context, 2)),
-          ),
-        ],
+        color: cardColor,
+        borderRadius: BorderRadius.circular(borderRadius ?? AppRadius.radiusXl),
+        border: Border.all(color: borderColor, width: 1),
+        boxShadow: AppShadows.shadowSm,
       ),
       child:
           padding != null
               ? Padding(padding: padding!, child: child)
               : Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: ResponsiveConstants.getRelativeWidth(context, 16),
-                  vertical: ResponsiveConstants.getRelativeHeight(context, 16),
-                ),
+                padding: const EdgeInsets.all(AppSpacing.space6),
                 child: child,
               ),
     );

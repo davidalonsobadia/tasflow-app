@@ -187,27 +187,32 @@ class _CollaborationCompletionDialogState
         children: [
           Text(
             translate('completeTask'),
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: foregroundColor,
+            ),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 16)),
           Text(
             translate('addCommentAboutTheWorkCompleted'),
-            style: Theme.of(context).textTheme.bodyMedium,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 16)),
           Container(
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: secondaryColor,
               borderRadius:
                   ResponsiveConstants.getRelativeBorderRadius(context, 8),
             ),
             child: TextField(
               controller: _commentController,
               maxLines: 3,
+              style: TextStyle(color: foregroundColor),
               decoration: InputDecoration(
                 hintText: translate('typeYourCommentHere'),
+                hintStyle: TextStyle(color: mutedForegroundColor),
                 contentPadding: EdgeInsets.all(16),
                 border: InputBorder.none,
               ),
@@ -219,7 +224,10 @@ class _CollaborationCompletionDialogState
             children: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(translate('cancel')),
+                child: Text(
+                  translate('cancel'),
+                  style: TextStyle(color: mutedForegroundColor),
+                ),
               ),
               SizedBox(
                 width: ResponsiveConstants.getRelativeWidth(context, 16),
@@ -230,7 +238,7 @@ class _CollaborationCompletionDialogState
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
-                  foregroundColor: whiteColor,
+                  foregroundColor: primaryForegroundColor,
                 ),
                 child: Text(translate('finish')),
               ),

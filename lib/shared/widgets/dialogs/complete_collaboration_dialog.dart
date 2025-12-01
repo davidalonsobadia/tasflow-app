@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/shared/widgets/buttons/outlined_app_button.dart';
 import 'package:taskflow_app/shared/widgets/buttons/voice_recording_button.dart';
 import 'package:taskflow_app/shared/widgets/dialogs/complete_collaboration_result.dart';
@@ -13,10 +14,8 @@ class CompleteCollaborationDialog extends StatefulWidget {
   final String? cancelText;
   final String? confirmText;
   final String? hintText;
-  final Color cancelColor;
-  final Color confirmColor;
-  final Color cancelTextColor;
-  final Color confirmTextColor;
+  final ButtonVariant cancelVariant;
+  final ButtonVariant confirmVariant;
   final double? width; // Optional width parameter
   final double maxWidthPercentage; // Percentage of screen width
 
@@ -27,10 +26,8 @@ class CompleteCollaborationDialog extends StatefulWidget {
     this.cancelText,
     this.confirmText,
     this.hintText,
-    this.cancelColor = lightGreyColor,
-    this.confirmColor = primaryColor,
-    this.cancelTextColor = blackColor,
-    this.confirmTextColor = whiteColor,
+    this.cancelVariant = ButtonVariant.secondary,
+    this.confirmVariant = ButtonVariant.primary,
     this.width, // No default, will use screen percentage if null
     this.maxWidthPercentage = 0.95, // Default to 85% of screen width
   });
@@ -81,9 +78,10 @@ class _CompleteCollaborationDialogState
         horizontal: 24.0,
         vertical: 24.0,
       ),
+      backgroundColor: backgroundColor,
       shape: RoundedRectangleBorder(
-        borderRadius:
-            ResponsiveConstants.getRelativeBorderRadius(context, 12),
+        borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+        side: BorderSide(color: borderColor, width: 1),
       ),
       child: Container(
         width:
@@ -98,26 +96,29 @@ class _CompleteCollaborationDialogState
             children: [
               Text(
                 widget.title,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: foregroundColor,
+                ),
               ),
               SizedBox(
                 height: ResponsiveConstants.getRelativeHeight(context, 16),
               ),
               Text(
                 widget.message,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: foregroundColor),
               ),
               SizedBox(
                 height: ResponsiveConstants.getRelativeHeight(context, 16),
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: whiteColor,
+                  color: cardColor,
                   borderRadius:
                       ResponsiveConstants.getRelativeBorderRadius(context, 8),
-                  border: Border.all(color: lightGreyColor, width: 1),
+                  border: Border.all(color: borderColor, width: 1),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,8 +220,7 @@ class _CompleteCollaborationDialogState
                     width: ResponsiveConstants.getRelativeWidth(context, 120),
                     text: cancelText,
                     onPressed: () => Navigator.pop(context),
-                    backgroundColor: widget.cancelColor,
-                    textColor: widget.cancelTextColor,
+                    variant: widget.cancelVariant,
                   ),
                   OutlinedAppButton(
                     width: ResponsiveConstants.getRelativeWidth(context, 120),
@@ -233,8 +233,7 @@ class _CompleteCollaborationDialogState
                             isTaskFinished: _isTaskFinished,
                           ),
                         ),
-                    backgroundColor: widget.confirmColor,
-                    textColor: widget.confirmTextColor,
+                    variant: widget.confirmVariant,
                   ),
                 ],
               ),

@@ -29,14 +29,14 @@ class EmptyItemPlaceholder extends StatelessWidget {
           Icon(
             iconItem,
             size: ResponsiveConstants.getRelativeWidth(context, 40),
-            color: lightGreyColor,
+            color: mutedForegroundColor,
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 6)),
           Text(
             noItemsAdded,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: greyTextColor),
+            ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 20)),
           InkWell(
@@ -48,7 +48,10 @@ class EmptyItemPlaceholder extends StatelessWidget {
                 SizedBox(
                   width: ResponsiveConstants.getRelativeWidth(context, 12),
                 ),
-                Text(addItem),
+                Text(
+                  addItem,
+                  style: TextStyle(color: foregroundColor),
+                ),
               ],
             ),
           ),

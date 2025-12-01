@@ -291,7 +291,7 @@ class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
             display,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: greyTextColor),
+            ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           ),
         );
       },
@@ -314,7 +314,7 @@ class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
             translate('timeElapsed'),
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: greyTextColor),
+            ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 24)),
           Row(
@@ -326,12 +326,12 @@ class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
                   width: ResponsiveConstants.getRelativeWidth(context, 64),
                   height: ResponsiveConstants.getRelativeHeight(context, 64),
                   decoration: BoxDecoration(
-                    color: onPrimaryColor,
+                    color: secondaryColor,
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.play_arrow,
-                    color: greyTextColor,
+                    color: mutedForegroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 30),
                   ),
                 ),
@@ -352,7 +352,7 @@ class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
                   ),
                   child: Icon(
                     Icons.stop,
-                    color: whiteColor,
+                    color: primaryForegroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 30),
                   ),
                 ),
@@ -429,7 +429,10 @@ class _CollaborationCompletionDialogState
             children: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: Text(translate('cancel')),
+                child: Text(
+                  translate('cancel'),
+                  style: TextStyle(color: mutedForegroundColor),
+                ),
               ),
               SizedBox(
                 width: ResponsiveConstants.getRelativeWidth(context, 16),
@@ -440,7 +443,7 @@ class _CollaborationCompletionDialogState
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
-                  foregroundColor: whiteColor,
+                  foregroundColor: primaryForegroundColor,
                 ),
                 child: Text(translate('finish')),
               ),

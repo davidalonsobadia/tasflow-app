@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
 class CustomSearchBar extends StatelessWidget {
@@ -22,9 +22,9 @@ class CustomSearchBar extends StatelessWidget {
     final String effectiveHintText = hintText ?? translate('search');
     return Container(
       decoration: BoxDecoration(
-        color: whiteColor,
-        borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
-        border: Border.all(color: lightGreyColor, width: 1),
+        color: cardColor,
+        borderRadius: BorderRadius.circular(AppRadius.radiusMd),
+        border: Border.all(color: borderColor, width: 1),
       ),
       child: TextField(
         controller: controller,
@@ -38,14 +38,14 @@ class CustomSearchBar extends StatelessWidget {
           hintText: effectiveHintText,
           hintStyle: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: mediumGreyColor),
+          ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           prefixIcon: Icon(Icons.search, color: primaryColor),
           border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
-            vertical: ResponsiveConstants.getRelativeHeight(context, 12),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: AppSpacing.space3,
           ),
         ),
-        style: TextStyle(color: blackColor),
+        style: TextStyle(color: foregroundColor),
       ),
     );
   }

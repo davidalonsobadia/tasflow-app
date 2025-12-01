@@ -38,7 +38,7 @@ class CapturedImageView extends StatelessWidget {
         ),
         SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 13)),
         Container(
-          color: blackColor.withAlpha((0.2 * 255).toInt()),
+          color: Colors.black.withAlpha((0.2 * 255).toInt()),
           padding: EdgeInsets.only(
             bottom: ResponsiveConstants.getRelativeHeight(context, 21),
           ),
@@ -50,17 +50,17 @@ class CapturedImageView extends StatelessWidget {
                 OutlinedAppButton(
                   text: translate('retake'),
                   onPressed: isProcessing ? null : retake,
-                  textColor: backgroundColor,
+                  textColor: primaryForegroundColor,
                 ),
                 Container(
                   width: 1,
                   height: ResponsiveConstants.getRelativeHeight(context, 42),
-                  color: whiteColor,
+                  color: primaryForegroundColor,
                 ),
                 OutlinedAppButton(
                   text: translate('done'),
                   onPressed: isProcessing ? null : done,
-                  textColor: backgroundColor,
+                  textColor: primaryForegroundColor,
                 ),
               ],
             ),

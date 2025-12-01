@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class _SignInScreenState extends State<SignInScreen>
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: backgroundColor,
         body: SafeArea(
           child: BlocListener<AuthCubit, AuthState>(
             listener: (context, state) async {
@@ -117,13 +118,16 @@ class _SignInScreenState extends State<SignInScreen>
                         Text(
                           translate('welcome'),
                           style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: foregroundColor,
+                              ),
                         ),
                         SizedBox(height: height * 0.015),
                         Text(
                           translate('signInToContinue'),
                           style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: onBackgroundColor),
+                              ?.copyWith(color: mutedForegroundColor),
                         ),
                         SizedBox(height: height * 0.04),
                         // Email field
@@ -149,39 +153,39 @@ class _SignInScreenState extends State<SignInScreen>
                           decoration: InputDecoration(
                             labelText: translate('email'),
                             hintText: translate('enterYourEmail'),
-                            prefixIcon: const Icon(Icons.email_outlined),
+                            prefixIcon: Icon(
+                              Icons.email_outlined,
+                              color: mutedForegroundColor,
+                            ),
+                            labelStyle: TextStyle(color: mutedForegroundColor),
+                            hintStyle: TextStyle(color: mutedForegroundColor),
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                               borderSide: BorderSide(
-                                color: onPrimaryColor,
-                                width: 2,
+                                color: borderColor,
+                                width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                               borderSide: BorderSide(
                                 color: primaryColor,
                                 width: 2,
                               ),
                             ),
                             filled: true,
-                            fillColor: whiteColor,
+                            fillColor: cardColor,
                           ),
+                          style: TextStyle(color: foregroundColor),
                         ),
                         SizedBox(height: height * 0.02),
                         // Password field
@@ -203,12 +207,16 @@ class _SignInScreenState extends State<SignInScreen>
                           decoration: InputDecoration(
                             labelText: translate('password'),
                             hintText: translate('enterYourPassword'),
-                            prefixIcon: const Icon(Icons.lock_outlined),
+                            prefixIcon: Icon(
+                              Icons.lock_outlined,
+                              color: mutedForegroundColor,
+                            ),
                             suffixIcon: IconButton(
                               icon: Icon(
                                 _obscurePassword
                                     ? Icons.visibility_outlined
                                     : Icons.visibility_off_outlined,
+                                color: mutedForegroundColor,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -216,38 +224,35 @@ class _SignInScreenState extends State<SignInScreen>
                                 });
                               },
                             ),
+                            labelStyle: TextStyle(color: mutedForegroundColor),
+                            hintStyle: TextStyle(color: mutedForegroundColor),
                             border: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                               borderSide: BorderSide(
-                                color: onPrimaryColor,
-                                width: 2,
+                                color: borderColor,
+                                width: 1,
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                               borderSide: BorderSide(
                                 color: primaryColor,
                                 width: 2,
                               ),
                             ),
                             filled: true,
-                            fillColor: whiteColor,
+                            fillColor: cardColor,
                           ),
+                          style: TextStyle(color: foregroundColor),
                         ),
                         SizedBox(height: height * 0.015),
                         // Forgot password link
@@ -276,21 +281,19 @@ class _SignInScreenState extends State<SignInScreen>
                           child: ElevatedButton(
                             onPressed: _isLoading ? null : _handleLogin,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
+                              backgroundColor: primaryColor,
+                              foregroundColor: primaryForegroundColor,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    ResponsiveConstants.getRelativeBorderRadius(
-                                      context,
-                                      12,
-                                    ),
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.radiusXl,
+                                ),
                               ),
                               elevation: 0,
                             ),
                             child:
                                 _isLoading
-                                    ? const CircularProgressIndicator(
-                                      color: whiteColor,
+                                    ? CircularProgressIndicator(
+                                      color: primaryForegroundColor,
                                     )
                                     : Text(
                                       translate('logIn'),
@@ -298,10 +301,7 @@ class _SignInScreenState extends State<SignInScreen>
                                         context,
                                       ).textTheme.bodyMedium?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color:
-                                            Theme.of(
-                                              context,
-                                            ).colorScheme.onPrimary,
+                                        color: primaryForegroundColor,
                                       ),
                                     ),
                           ),
@@ -314,7 +314,7 @@ class _SignInScreenState extends State<SignInScreen>
                             Text(
                               translate('dontHaveAccount'),
                               style: Theme.of(context).textTheme.bodySmall
-                                  ?.copyWith(color: greyTextColor),
+                                  ?.copyWith(color: mutedForegroundColor),
                             ),
                             TextButton(
                               onPressed: () {

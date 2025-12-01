@@ -132,8 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 translate('activeTasks'),
                 activeTasksCount.toString(),
                 Icons.adjust,
-                _currentFilter == 'all_active' ? primaryColor : onPrimaryColor,
-                _currentFilter == 'all_active' ? onPrimaryColor : primaryColor,
+                _currentFilter == 'all_active' ? primaryColor : secondaryColor,
+                _currentFilter == 'all_active'
+                    ? primaryForegroundColor
+                    : primaryColor,
               ),
             ),
             SizedBox(width: ResponsiveConstants.getRelativeWidth(context, 16)),
@@ -152,11 +154,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 inProgressCount.toString(),
                 Icons.sync,
                 _currentFilter == 'in_progress'
-                    ? onInProgressColor
-                    : inProgressColor,
+                    ? priorityMediumColor
+                    : secondaryColor,
                 _currentFilter == 'in_progress'
-                    ? inProgressColor
-                    : onInProgressColor,
+                    ? backgroundColor
+                    : priorityMediumColor,
               ),
             ),
           ],
@@ -206,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: greyTextColor,
+                    color: mutedForegroundColor,
                     height: 1.1,
                   ),
                 ),
@@ -253,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 translate('newTask'),
                 Icons.add,
                 primaryColor,
-                whiteColor,
+                primaryForegroundColor,
                 onTap: () {
                   final modalBottomSheet = ModalBottomVehicleInfo(
                     onTaskSelected: (task) {
@@ -271,8 +273,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 context,
                 translate('history'),
                 Icons.history,
-                onPrimaryColor,
-                blackColor,
+                secondaryColor,
+                secondaryForegroundColor,
                 onTap: () => context.go('/task-history'),
               ),
             ],
@@ -310,7 +312,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               label,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: bgColor == primaryColor ? whiteColor : blackColor,
+                color:
+                    bgColor == primaryColor
+                        ? primaryForegroundColor
+                        : foregroundColor,
               ),
             ),
           ],
@@ -388,14 +393,14 @@ class _HomeScreenState extends State<HomeScreen> {
             translate('noActiveTasks'),
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: greyTextColor),
+            ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 10)),
           Text(
             translate('tapNewTaskToGetStarted'),
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: greyTextColor),
+            ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
             textAlign: TextAlign.center,
           ),
         ],

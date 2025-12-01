@@ -19,7 +19,7 @@ class CustomHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: ResponsiveConstants.getRelativeHeight(context, 56),
-      color: whiteColor,
+      color: backgroundColor,
       padding: EdgeInsets.symmetric(
         horizontal: ResponsiveConstants.getRelativeWidth(context, 8),
       ),
@@ -28,6 +28,7 @@ class CustomHeader extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
+              color: foregroundColor,
               size: ResponsiveConstants.getRelativeWidth(context, 20),
             ),
             onPressed: onBackPressed ?? () => context.pop(),
@@ -39,9 +40,10 @@ class CustomHeader extends StatelessWidget {
             child: Center(
               child: Text(
                 title,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: foregroundColor,
+                ),
               ),
             ),
           ),
@@ -50,6 +52,7 @@ class CustomHeader extends StatelessWidget {
                 IconButton(
                   icon: Icon(
                     Icons.close,
+                    color: foregroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 24),
                   ),
                   onPressed: onBackPressed ?? () => context.go('/main'),

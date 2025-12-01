@@ -74,7 +74,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                           ? Icons.flash_on_outlined
                           : Icons.flash_off_outlined,
                       size: ResponsiveConstants.getRelativeHeight(context, 34),
-                      color: whiteColor,
+                      color: primaryForegroundColor,
                     ),
                   ),
                   const Spacer(),
@@ -83,7 +83,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                     icon: Icon(
                       Icons.close,
                       size: ResponsiveConstants.getRelativeHeight(context, 34),
-                      color: whiteColor,
+                      color: primaryForegroundColor,
                     ),
                   ),
                 ],
@@ -131,7 +131,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                   Text(
                     translate('scanQrCode'),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: whiteColor,
+                      color: primaryForegroundColor,
                       fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                   Text(
                     translate('positionQrCodeWithinFrame'),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: whiteColor.withOpacity(0.7),
+                      color: primaryForegroundColor.withOpacity(0.7),
                     ),
                     textAlign: TextAlign.center,
                   ),

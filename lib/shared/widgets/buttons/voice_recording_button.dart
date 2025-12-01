@@ -142,14 +142,14 @@ class _VoiceRecordingButtonState extends State<VoiceRecordingButton>
                           ResponsiveConstants.getRelativeWidth(context, 8),
                         ),
                         decoration: BoxDecoration(
-                          color: redTextColor.withAlpha(
+                          color: destructiveColor.withAlpha(
                             (0.3 * 255).toInt(),
                           ), // Red background when recording
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.mic,
-                          color: redTextColor, // Red mic when recording
+                          color: destructiveColor, // Red mic when recording
                           size: ResponsiveConstants.getRelativeWidth(
                             context,
                             28,

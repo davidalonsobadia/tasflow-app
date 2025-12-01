@@ -148,16 +148,17 @@ class TaskCardDescription extends StatelessWidget {
           if (task.description.isNotEmpty) ...[
             Text(
               translate('description'),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: foregroundColor,
+              ),
             ),
             SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 3)),
             Text(
               task.description,
               style: Theme.of(
                 context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+              ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
             ),
             SizedBox(
               height: ResponsiveConstants.getRelativeHeight(context, 16),
@@ -166,16 +167,17 @@ class TaskCardDescription extends StatelessWidget {
           if (task.itemDescription.isNotEmpty) ...[
             Text(
               translate('itemDescription'),
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: foregroundColor,
+              ),
             ),
             SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 3)),
             Text(
               task.itemDescription,
               style: Theme.of(
                 context,
-              ).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+              ).textTheme.bodyMedium?.copyWith(color: mutedForegroundColor),
             ),
             SizedBox(
               height: ResponsiveConstants.getRelativeHeight(context, 16),
@@ -203,9 +205,10 @@ class TaskCardElements extends StatelessWidget {
         children: [
           Text(
             translate('taskElements'),
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: foregroundColor,
+            ),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 16)),
           Row(
@@ -281,14 +284,14 @@ class TaskCardElements extends StatelessWidget {
                 vertical: ResponsiveConstants.getRelativeHeight(context, 12),
               ),
               decoration: BoxDecoration(
-                color: onPrimaryColor,
+                color: secondaryColor,
                 borderRadius:
                     ResponsiveConstants.getRelativeBorderRadius(context, 8),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.visibility, color: blackColor),
+                  Icon(Icons.visibility, color: foregroundColor),
                   SizedBox(
                     width: ResponsiveConstants.getRelativeWidth(context, 10),
                   ),
@@ -296,7 +299,7 @@ class TaskCardElements extends StatelessWidget {
                     translate('viewAllTaskElements'),
                     style: Theme.of(
                       context,
-                    ).textTheme.bodyMedium?.copyWith(color: blackColor),
+                    ).textTheme.bodyMedium?.copyWith(color: foregroundColor),
                   ),
                 ],
               ),
@@ -332,7 +335,7 @@ class AssetContainer extends StatelessWidget {
               : ResponsiveConstants.getRelativeWidth(context, 96),
       height: ResponsiveConstants.getRelativeHeight(context, 96),
       decoration: BoxDecoration(
-        color: onPrimaryColor,
+        color: secondaryColor,
         borderRadius:
             ResponsiveConstants.getRelativeBorderRadius(context, 8),
       ),
@@ -341,7 +344,7 @@ class AssetContainer extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: greyTextColor,
+            color: mutedForegroundColor,
             size: ResponsiveConstants.getRelativeWidth(context, 24),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 4)),
@@ -349,14 +352,14 @@ class AssetContainer extends StatelessWidget {
             asset,
             style: Theme.of(
               context,
-            ).textTheme.labelMedium?.copyWith(color: greyTextColor),
+            ).textTheme.labelMedium?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 6)),
           Text(
             '$amount',
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: greyTextColor),
+            ).textTheme.bodySmall?.copyWith(color: foregroundColor),
           ),
         ],
       ),

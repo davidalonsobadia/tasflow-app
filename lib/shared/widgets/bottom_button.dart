@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class BottomButton extends StatelessWidget {
@@ -20,18 +21,19 @@ class BottomButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor ?? primaryColor,
+        foregroundColor: primaryForegroundColor,
         minimumSize: Size(
           double.infinity,
           ResponsiveConstants.getRelativeHeight(context, 48),
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
+          borderRadius: BorderRadius.circular(AppRadius.radiusMd),
         ),
       ),
       child: Text(
         label,
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          color: whiteColor,
+          color: primaryForegroundColor,
           fontWeight: FontWeight.w600,
         ),
       ),

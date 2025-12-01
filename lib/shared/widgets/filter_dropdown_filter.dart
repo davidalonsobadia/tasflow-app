@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class FilterDropdownWidget<T> extends StatelessWidget {
@@ -39,11 +40,9 @@ class FilterDropdownWidget<T> extends StatelessWidget {
           horizontal: ResponsiveConstants.getRelativeWidth(context, 12),
         ),
         decoration: BoxDecoration(
-          color: lightGreyColor.withAlpha((0.2 * 255).toInt()),
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 8),
-          border: Border.all(
-            color: lightGreyColor.withAlpha((0.5 * 255).toInt()),
-          ),
+          color: secondaryColor,
+          borderRadius: BorderRadius.circular(AppRadius.radiusLg),
+          border: Border.all(color: borderColor, width: 1),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -52,7 +51,7 @@ class FilterDropdownWidget<T> extends StatelessWidget {
               Icon(
                 prefixIcon!,
                 size: ResponsiveConstants.getRelativeWidth(context, 16),
-                color: mediumGreyColor,
+                color: mutedForegroundColor,
               ),
               SizedBox(width: ResponsiveConstants.getRelativeWidth(context, 8)),
             ],
@@ -62,14 +61,14 @@ class FilterDropdownWidget<T> extends StatelessWidget {
                   isExpanded: true,
                   icon: Icon(
                     Icons.arrow_drop_down,
-                    color: mediumGreyColor,
+                    color: mutedForegroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 20),
                   ),
                   hint: Text(
                     hintText,
                     style: TextStyle(
                       fontSize: 13,
-                      color: mediumGreyColor,
+                      color: mutedForegroundColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -79,9 +78,10 @@ class FilterDropdownWidget<T> extends StatelessWidget {
                       value: null,
                       child: Text(
                         allItemsText,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
+                          color: foregroundColor,
                         ),
                       ),
                     ),
@@ -90,22 +90,23 @@ class FilterDropdownWidget<T> extends StatelessWidget {
                         value: item,
                         child: Text(
                           itemDisplayText(item),
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w500,
+                            color: foregroundColor,
                           ),
                         ),
                       ),
                     ),
                   ],
                   onChanged: onChanged,
-                  dropdownColor: whiteColor,
+                  dropdownColor: cardColor,
                   menuMaxHeight: ResponsiveConstants.getRelativeHeight(
                     context,
                     500,
                   ),
                   style: TextStyle(
-                    color: blackColor,
+                    color: foregroundColor,
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),
@@ -119,7 +120,7 @@ class FilterDropdownWidget<T> extends StatelessWidget {
                 child: Icon(
                   Icons.clear,
                   size: ResponsiveConstants.getRelativeWidth(context, 16),
-                  color: mediumGreyColor,
+                  color: mutedForegroundColor,
                 ),
               ),
             ],

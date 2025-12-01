@@ -27,8 +27,9 @@ class Thumbnail extends StatelessWidget {
       width: ResponsiveConstants.getRelativeWidth(context, 90),
       height: ResponsiveConstants.getRelativeHeight(context, 90),
       decoration: BoxDecoration(
-        color: onPrimaryColor,
+        color: secondaryColor,
         borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
+        border: Border.all(color: borderColor, width: 1),
       ),
       child: Stack(
         fit: StackFit.expand,
@@ -53,12 +54,12 @@ class Thumbnail extends StatelessWidget {
                     ResponsiveConstants.getRelativeWidth(context, 2),
                   ),
                   decoration: BoxDecoration(
-                    color: blackColor.withAlpha(120),
+                    color: backgroundColor.withAlpha(180),
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
                     Icons.close,
-                    color: whiteColor,
+                    color: foregroundColor,
                     size: ResponsiveConstants.getRelativeWidth(context, 20),
                   ),
                 ),

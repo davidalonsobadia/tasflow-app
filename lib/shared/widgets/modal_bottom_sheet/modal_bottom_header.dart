@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class ModalBottomHeader extends StatelessWidget {
@@ -21,11 +22,10 @@ class ModalBottomHeader extends StatelessWidget {
         horizontal: ResponsiveConstants.getRelativeWidth(context, 16),
       ),
       decoration: BoxDecoration(
-        color: whiteColor,
+        color: backgroundColor,
+        border: Border(bottom: BorderSide(color: borderColor, width: 1)),
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(
-            ResponsiveConstants.getRelativeWidth(context, 16),
-          ),
+          top: Radius.circular(AppRadius.radiusLg),
         ),
       ),
       child: Column(
@@ -35,7 +35,7 @@ class ModalBottomHeader extends StatelessWidget {
             width: ResponsiveConstants.getRelativeHeight(context, 48),
             height: ResponsiveConstants.getRelativeHeight(context, 4),
             decoration: BoxDecoration(
-              color: onPrimaryColor,
+              color: mutedColor,
               borderRadius:
                   ResponsiveConstants.getRelativeBorderRadius(context, 20),
             ),
@@ -58,7 +58,7 @@ class ModalBottomHeader extends StatelessWidget {
                         ),
                         child: Icon(
                           Icons.arrow_back_ios,
-                          color: greyTextColor,
+                          color: mutedForegroundColor,
                           size: ResponsiveConstants.getRelativeWidth(
                             context,
                             20,
@@ -70,6 +70,7 @@ class ModalBottomHeader extends StatelessWidget {
                     title,
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.w700,
+                      color: foregroundColor,
                     ),
                   ),
                 ],
@@ -78,7 +79,7 @@ class ModalBottomHeader extends StatelessWidget {
                 onTap: () => Navigator.pop(context),
                 child: Icon(
                   Icons.close_rounded,
-                  color: greyTextColor,
+                  color: mutedForegroundColor,
                   size: ResponsiveConstants.getRelativeWidth(context, 24),
                 ),
               ),

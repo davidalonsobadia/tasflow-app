@@ -174,16 +174,16 @@ class _SplashScreenState extends State<SplashScreen>
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  // Transition from primary color to white background
+                  // Transition from primary color to dark background
                   Color.lerp(
                         primaryColor,
-                        Colors.white,
+                        backgroundColor,
                         _backgroundAnimation.value,
                       ) ??
                       primaryColor,
                   Color.lerp(
                         primaryColor.withAlpha((0.8 * 255).toInt()),
-                        Colors.white,
+                        backgroundColor,
                         _backgroundAnimation.value,
                       ) ??
                       primaryColor.withAlpha((0.8 * 255).toInt()),
@@ -213,7 +213,7 @@ class _SplashScreenState extends State<SplashScreen>
                       translate('urbanEquipments'),
                       style: TextStyle(
                         color: Color.lerp(
-                          backgroundColor,
+                          foregroundColor,
                           primaryColor,
                           _backgroundAnimation.value,
                         ),

@@ -94,9 +94,10 @@ class _ProductQuantityContentState extends State<ProductQuantityContent> {
       children: [
         Text(
           translate('selectQuantity'),
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: foregroundColor,
+          ),
         ),
         SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 14)),
         Container(
@@ -105,16 +106,17 @@ class _ProductQuantityContentState extends State<ProductQuantityContent> {
             horizontal: ResponsiveConstants.getRelativeWidth(context, 16),
           ),
           decoration: BoxDecoration(
-            color: whiteColor,
+            color: cardColor,
             borderRadius:
                 ResponsiveConstants.getRelativeBorderRadius(context, 10),
+            border: Border.all(color: borderColor, width: 1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: onPrimaryColor,
+                  color: secondaryColor,
                   shape: BoxShape.circle,
                 ),
                 child: InkWell(
@@ -130,19 +132,20 @@ class _ProductQuantityContentState extends State<ProductQuantityContent> {
                     padding: EdgeInsets.all(
                       ResponsiveConstants.getRelativeWidth(context, 16),
                     ),
-                    child: Icon(Icons.remove),
+                    child: Icon(Icons.remove, color: foregroundColor),
                   ),
                 ),
               ),
               Text(
                 '$_selectedQuantity',
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: foregroundColor,
+                ),
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: onPrimaryColor,
+                  color: secondaryColor,
                   shape: BoxShape.circle,
                 ),
                 child: InkWell(
@@ -170,7 +173,7 @@ class _ProductQuantityContentState extends State<ProductQuantityContent> {
                     padding: EdgeInsets.all(
                       ResponsiveConstants.getRelativeWidth(context, 16),
                     ),
-                    child: Icon(Icons.add),
+                    child: Icon(Icons.add, color: foregroundColor),
                   ),
                 ),
               ),
@@ -248,15 +251,18 @@ class _ProductQuantityContentState extends State<ProductQuantityContent> {
         Divider(height: ResponsiveConstants.getRelativeHeight(context, 24)),
         Text(
           translate('availableInOtherLocations'),
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: foregroundColor,
+          ),
         ),
         SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 10)),
         for (var location in availableInOtherLocations) ...[
           Text(
             '${location.displayName}: ${FormatUtils.formatAmount(location.quantity)} ${product.unit}',
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
           ),
           SizedBox(height: ResponsiveConstants.getRelativeHeight(context, 4)),
         ],

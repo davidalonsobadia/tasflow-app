@@ -51,7 +51,7 @@ class CameraView extends StatelessWidget {
                         ? Icons.flash_on_outlined
                         : Icons.flash_off_outlined,
                     size: ResponsiveConstants.getRelativeHeight(context, 34),
-                    color: whiteColor,
+                    color: primaryForegroundColor,
                   ),
                 ),
               const Spacer(),
@@ -60,7 +60,7 @@ class CameraView extends StatelessWidget {
                 icon: Icon(
                   Icons.close,
                   size: ResponsiveConstants.getRelativeHeight(context, 34),
-                  color: whiteColor,
+                  color: primaryForegroundColor,
                 ),
               ),
             ],

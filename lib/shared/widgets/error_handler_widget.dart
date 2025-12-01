@@ -38,7 +38,9 @@ class ErrorHandlerWidget extends StatelessWidget {
             Text(
               error.message,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: foregroundColor),
             ),
             SizedBox(
               height: ResponsiveConstants.getRelativeHeight(context, 24),
@@ -57,31 +59,31 @@ class ErrorHandlerWidget extends StatelessWidget {
     switch (error.type) {
       case ErrorType.network:
         iconData = Icons.signal_wifi_off;
-        iconColor = redTextColor;
+        iconColor = destructiveColor;
         break;
       case ErrorType.authentication:
         iconData = Icons.lock;
-        iconColor = orangeColor;
+        iconColor = priorityMediumColor;
         break;
       case ErrorType.server:
         iconData = Icons.cloud_off;
-        iconColor = redTextColor;
+        iconColor = destructiveColor;
         break;
       case ErrorType.notFound:
         iconData = Icons.search_off;
-        iconColor = greyTextColor;
+        iconColor = mutedForegroundColor;
         break;
       case ErrorType.permission:
         iconData = Icons.no_accounts;
-        iconColor = orangeColor;
+        iconColor = priorityMediumColor;
         break;
       case ErrorType.validation:
         iconData = Icons.error_outline;
-        iconColor = orangeColor;
+        iconColor = priorityMediumColor;
         break;
       default:
         iconData = Icons.warning_amber;
-        iconColor = redTextColor;
+        iconColor = destructiveColor;
         break;
     }
 
@@ -96,7 +98,12 @@ class ErrorHandlerWidget extends StatelessWidget {
       case ErrorType.network:
         if (onRetry != null) {
           buttons.add(
-            _buildButton(context, translate('retry'), primaryColor, onRetry!),
+            _buildButton(
+              context,
+              translate('retry'),
+              ButtonVariant.primary,
+              onRetry!,
+            ),
           );
         }
         break;
@@ -104,7 +111,12 @@ class ErrorHandlerWidget extends StatelessWidget {
       case ErrorType.server:
         if (onRetry != null) {
           buttons.add(
-            _buildButton(context, translate('retry'), primaryColor, onRetry!),
+            _buildButton(
+              context,
+              translate('retry'),
+              ButtonVariant.primary,
+              onRetry!,
+            ),
           );
         }
         if (onContactAdmin != null) {
@@ -112,7 +124,7 @@ class ErrorHandlerWidget extends StatelessWidget {
             _buildButton(
               context,
               translate('contactAdmin'),
-              greyTextColor,
+              ButtonVariant.secondary,
               onContactAdmin!,
             ),
           );
@@ -122,7 +134,12 @@ class ErrorHandlerWidget extends StatelessWidget {
       case ErrorType.authentication:
         if (onLogin != null) {
           buttons.add(
-            _buildButton(context, translate('logIn'), primaryColor, onLogin!),
+            _buildButton(
+              context,
+              translate('logIn'),
+              ButtonVariant.primary,
+              onLogin!,
+            ),
           );
         }
         break;
@@ -133,7 +150,7 @@ class ErrorHandlerWidget extends StatelessWidget {
             _buildButton(
               context,
               translate('backHome'),
-              primaryColor,
+              ButtonVariant.primary,
               onBackToHome!,
             ),
           );
@@ -147,7 +164,7 @@ class ErrorHandlerWidget extends StatelessWidget {
             _buildButton(
               context,
               translate('contactAdmin'),
-              primaryColor,
+              ButtonVariant.primary,
               onContactAdmin!,
             ),
           );
@@ -170,14 +187,9 @@ class ErrorHandlerWidget extends StatelessWidget {
   Widget _buildButton(
     BuildContext context,
     String text,
-    Color color,
+    ButtonVariant variant,
     VoidCallback onPressed,
   ) {
-    return OutlinedAppButton(
-      text: text,
-      onPressed: onPressed,
-      backgroundColor: color,
-      textColor: color == primaryColor ? onPrimaryColor : whiteColor,
-    );
+    return OutlinedAppButton(text: text, onPressed: onPressed, variant: variant);
   }
 }

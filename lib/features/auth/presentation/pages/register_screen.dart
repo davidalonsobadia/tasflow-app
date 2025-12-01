@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -68,12 +69,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: onBackgroundColor),
+            icon: Icon(Icons.arrow_back, color: foregroundColor),
             onPressed: () => context.pop(),
           ),
         ),
@@ -109,13 +110,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         translate('createAccount'),
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: foregroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.01),
                       Text(
                         translate('fillInYourDetails'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: greyTextColor,
+                          color: mutedForegroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.04),
@@ -224,7 +226,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             elevation: 0,
                           ),
                           child: _isLoading
-                              ? const CircularProgressIndicator(color: whiteColor)
+                              ? CircularProgressIndicator(
+                                  color: primaryForegroundColor,
+                                )
                               : Text(
                                   translate('signUp'),
                                   style: Theme.of(context)
@@ -232,9 +236,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .bodyMedium
                                       ?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
+                                        color: primaryForegroundColor,
                                       ),
                                 ),
                         ),
@@ -247,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Text(
                             translate('alreadyHaveAccount'),
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: greyTextColor,
+                              color: mutedForegroundColor,
                             ),
                           ),
                           TextButton(
@@ -298,23 +300,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
       },
       validator: validator,
+      style: TextStyle(color: foregroundColor),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(icon, color: mutedForegroundColor),
+        labelStyle: TextStyle(color: mutedForegroundColor),
+        hintStyle: TextStyle(color: mutedForegroundColor),
         border: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
-          borderSide: BorderSide(color: onPrimaryColor, width: 2),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+          borderSide: BorderSide(color: borderColor, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
           borderSide: BorderSide(color: primaryColor, width: 2),
         ),
         filled: true,
-        fillColor: whiteColor,
+        fillColor: cardColor,
       ),
     );
   }
@@ -343,29 +348,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
             }
           },
       validator: validator,
+      style: TextStyle(color: foregroundColor),
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: const Icon(Icons.lock_outlined),
+        prefixIcon: Icon(Icons.lock_outlined, color: mutedForegroundColor),
         suffixIcon: IconButton(
           icon: Icon(
             obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+            color: mutedForegroundColor,
           ),
           onPressed: onToggle,
         ),
+        labelStyle: TextStyle(color: mutedForegroundColor),
+        hintStyle: TextStyle(color: mutedForegroundColor),
         border: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
-          borderSide: BorderSide(color: onPrimaryColor, width: 2),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+          borderSide: BorderSide(color: borderColor, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: ResponsiveConstants.getRelativeBorderRadius(context, 12),
+          borderRadius: BorderRadius.circular(AppRadius.radiusXl),
           borderSide: BorderSide(color: primaryColor, width: 2),
         ),
         filled: true,
-        fillColor: whiteColor,
+        fillColor: cardColor,
       ),
     );
   }

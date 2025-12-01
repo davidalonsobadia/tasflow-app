@@ -58,12 +58,7 @@ class _ModalBottomProductsState extends State<ModalBottomProducts> {
           Expanded(
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                border: Border(
-                  top: BorderSide(color: onPrimaryColor, width: 1),
-                ),
-              ),
+              decoration: BoxDecoration(color: backgroundColor),
               child: AnimatedSwitcher(
                 duration: Duration(milliseconds: 250),
                 transitionBuilder: (Widget child, Animation<double> animation) {

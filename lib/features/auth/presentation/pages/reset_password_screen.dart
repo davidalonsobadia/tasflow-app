@@ -1,5 +1,6 @@
 import 'package:taskflow_app/config/constants/responsive_constants.dart';
 import 'package:taskflow_app/config/themes/colors_config.dart';
+import 'package:taskflow_app/config/themes/theme_config.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:taskflow_app/features/auth/presentation/cubit/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -66,12 +67,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.surface,
+        backgroundColor: backgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: onBackgroundColor),
+            icon: Icon(Icons.arrow_back, color: foregroundColor),
             onPressed: () => context.pop(),
           ),
         ),
@@ -108,13 +109,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         translate('resetPassword'),
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: foregroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.01),
                       Text(
                         translate('enterResetCodeAndNewPassword'),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: greyTextColor,
+                          color: mutedForegroundColor,
                         ),
                       ),
                       SizedBox(height: height * 0.01),
@@ -125,15 +127,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           vertical: height * 0.015,
                         ),
                         decoration: BoxDecoration(
-                          color: surfaceLightBlue,
-                          borderRadius: ResponsiveConstants.getRelativeBorderRadius(
-                            context,
-                            8,
-                          ),
+                          color: primaryColor.withAlpha(25),
+                          borderRadius: BorderRadius.circular(AppRadius.radiusLg),
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.email_outlined, color: onSurfaceLightBlue),
+                            Icon(Icons.email_outlined, color: primaryColor),
                             SizedBox(width: width * 0.02),
                             Expanded(
                               child: Text(
@@ -141,7 +140,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
-                                    ?.copyWith(color: onSurfaceLightBlue),
+                                    ?.copyWith(color: primaryColor),
                               ),
                             ),
                           ],
@@ -162,36 +161,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: foregroundColor),
                         decoration: InputDecoration(
                           labelText: translate('resetCode'),
                           hintText: translate('enterResetCode'),
                           helperText: translate('mockTokenHint'),
-                          prefixIcon: const Icon(Icons.vpn_key_outlined),
+                          prefixIcon: Icon(
+                            Icons.vpn_key_outlined,
+                            color: mutedForegroundColor,
+                          ),
+                          labelStyle: TextStyle(color: mutedForegroundColor),
+                          hintStyle: TextStyle(color: mutedForegroundColor),
+                          helperStyle: TextStyle(color: mutedForegroundColor),
                           border: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+                            borderSide: BorderSide(color: borderColor, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                             borderSide: BorderSide(color: primaryColor, width: 2),
                           ),
                           filled: true,
-                          fillColor: whiteColor,
+                          fillColor: cardColor,
                         ),
                       ),
                       SizedBox(height: height * 0.02),
@@ -213,15 +207,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: foregroundColor),
                         decoration: InputDecoration(
                           labelText: translate('newPassword'),
                           hintText: translate('enterNewPassword'),
-                          prefixIcon: const Icon(Icons.lock_outlined),
+                          prefixIcon: Icon(
+                            Icons.lock_outlined,
+                            color: mutedForegroundColor,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscurePassword
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
+                              color: mutedForegroundColor,
                             ),
                             onPressed: () {
                               setState(() {
@@ -229,31 +228,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               });
                             },
                           ),
+                          labelStyle: TextStyle(color: mutedForegroundColor),
+                          hintStyle: TextStyle(color: mutedForegroundColor),
                           border: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+                            borderSide: BorderSide(color: borderColor, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                             borderSide: BorderSide(color: primaryColor, width: 2),
                           ),
                           filled: true,
-                          fillColor: whiteColor,
+                          fillColor: cardColor,
                         ),
                       ),
                       SizedBox(height: height * 0.02),
@@ -273,15 +262,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           }
                           return null;
                         },
+                        style: TextStyle(color: foregroundColor),
                         decoration: InputDecoration(
                           labelText: translate('confirmPassword'),
                           hintText: translate('confirmYourPassword'),
-                          prefixIcon: const Icon(Icons.lock_outlined),
+                          prefixIcon: Icon(
+                            Icons.lock_outlined,
+                            color: mutedForegroundColor,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
                               _obscureConfirmPassword
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
+                              color: mutedForegroundColor,
                             ),
                             onPressed: () {
                               setState(() {
@@ -289,31 +283,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               });
                             },
                           ),
+                          labelStyle: TextStyle(color: mutedForegroundColor),
+                          hintStyle: TextStyle(color: mutedForegroundColor),
                           border: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
-                            borderSide: BorderSide(color: onPrimaryColor, width: 2),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
+                            borderSide: BorderSide(color: borderColor, width: 1),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                ResponsiveConstants.getRelativeBorderRadius(
-                                  context,
-                                  12,
-                                ),
+                            borderRadius: BorderRadius.circular(AppRadius.radiusXl),
                             borderSide: BorderSide(color: primaryColor, width: 2),
                           ),
                           filled: true,
-                          fillColor: whiteColor,
+                          fillColor: cardColor,
                         ),
                       ),
                       SizedBox(height: height * 0.04),
@@ -324,18 +308,19 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         child: ElevatedButton(
                           onPressed: _isLoading ? null : _handleSubmit,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.primary,
+                            backgroundColor: primaryColor,
+                            foregroundColor: primaryForegroundColor,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  ResponsiveConstants.getRelativeBorderRadius(
-                                    context,
-                                    12,
-                                  ),
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusXl,
+                              ),
                             ),
                             elevation: 0,
                           ),
                           child: _isLoading
-                              ? const CircularProgressIndicator(color: whiteColor)
+                              ? CircularProgressIndicator(
+                                  color: primaryForegroundColor,
+                                )
                               : Text(
                                   translate('resetPassword'),
                                   style: Theme.of(context)
@@ -343,9 +328,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                       .bodyMedium
                                       ?.copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .onPrimary,
+                                        color: primaryForegroundColor,
                                       ),
                                 ),
                         ),

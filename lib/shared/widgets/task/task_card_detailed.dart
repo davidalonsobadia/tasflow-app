@@ -39,6 +39,7 @@ class TaskCardDetailed extends StatelessWidget {
                       displayedTask.name,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
+                        color: foregroundColor,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -132,7 +133,7 @@ class TaskCardDetailed extends StatelessWidget {
       children: [
         Icon(
           icon,
-          color: greyTextColor,
+          color: mutedForegroundColor,
           size: ResponsiveConstants.getRelativeWidth(context, 16),
         ),
         SizedBox(width: ResponsiveConstants.getRelativeWidth(context, 4)),
@@ -142,7 +143,7 @@ class TaskCardDetailed extends StatelessWidget {
             "$taskLabel: $taskValue",
             style: Theme.of(
               context,
-            ).textTheme.bodySmall?.copyWith(color: greyTextColor),
+            ).textTheme.bodySmall?.copyWith(color: mutedForegroundColor),
             overflow: TextOverflow.ellipsis,
           ),
         ),
